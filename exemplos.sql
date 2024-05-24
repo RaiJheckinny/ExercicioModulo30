@@ -73,7 +73,10 @@ ALTER TABLE TB_VENDA
 ADD CONSTRAINT UK_CODIGO_VENDA UNIQUE (CODIGO);
 
 alter table tb_cliente
-add column idade bigint
+add column idade bigint not null;
+
+alter table tb_cliente
+add constraint check_idade_cliente check (idade >= 0 and idade <= 120)
 
 
 SELECT V.ID AS ID_VENDA, V.CODIGO, V.ID_CLIENTE_FK, V.VALOR_TOTAL, V.DATA_VENDA, V.STATUS_VENDA,
