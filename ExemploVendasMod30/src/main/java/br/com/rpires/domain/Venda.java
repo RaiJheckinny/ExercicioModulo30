@@ -20,7 +20,7 @@ import br.com.rpires.dao.Persistente;
  */
 @Tabela("TB_VENDA")
 public class Venda implements Persistente {
-	
+
 	public enum Status {
 		INICIADA, CONCLUIDA, CANCELADA;
 
@@ -81,6 +81,7 @@ public class Venda implements Persistente {
 	}
 
 	public void adicionarProduto(Produto produto, Integer quantidade) {
+		validarQuantidade(produto,quantidade);
 		validarStatus();
 		Optional<ProdutoQuantidade> op = 
 				produtos.stream().filter(filter -> filter.getProduto().getCodigo().equals(produto.getCodigo())).findAny();
@@ -95,6 +96,12 @@ public class Venda implements Persistente {
 			produtos.add(prod);
 		}
 		recalcularValorTotalVenda();
+	}
+
+	private void validarQuantidade(Produto produto, Integer quantidade) {
+		if (!(quantidade <= produto.getEstoque())) {
+			throw new UnsupportedOperationException("Quantidade supera o estoque");
+		}
 	}
 
 	private void validarStatus() {

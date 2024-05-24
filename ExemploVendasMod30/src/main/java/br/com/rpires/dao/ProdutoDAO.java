@@ -36,8 +36,8 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
 	protected String getQueryInsercao() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO TB_PRODUTO ");
-		sb.append("(ID, CODIGO, NOME, DESCRICAO, VALOR)");
-		sb.append("VALUES (nextval('sq_produto'),?,?,?,?)");
+		sb.append("(ID, CODIGO, NOME, DESCRICAO, VALOR, ESTOQUE)");
+		sb.append("VALUES (nextval('sq_produto'),?,?,?,?,?)");
 		return sb.toString();
 	}
 
@@ -47,6 +47,7 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
 		stmInsert.setString(2, entity.getNome());
 		stmInsert.setString(3, entity.getDescricao());
 		stmInsert.setBigDecimal(4, entity.getValor());
+		stmInsert.setLong(5, entity.getEstoque());
 	}
 
 	@Override

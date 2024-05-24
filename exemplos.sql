@@ -78,6 +78,9 @@ add column idade bigint not null;
 alter table tb_cliente
 add constraint check_idade_cliente check (idade >= 0 and idade <= 120)
 
+alter table tb_produto 
+add estoque bigint not null
+
 
 SELECT V.ID AS ID_VENDA, V.CODIGO, V.ID_CLIENTE_FK, V.VALOR_TOTAL, V.DATA_VENDA, V.STATUS_VENDA,
 C.ID AS ID_CLIENTE, C.NOME, C.CPF, C.TEL, C.ENDERECO, C.NUMERO, C.CIDADE, C.ESTADO,

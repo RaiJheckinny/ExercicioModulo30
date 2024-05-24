@@ -292,6 +292,7 @@ public class VendaDAOTest {
 		produto.setDescricao("Produto 1");
 		produto.setNome("Produto 1");
 		produto.setValor(valor);
+		produto.setEstoque(999L);
 		produtoDao.cadastrar(produto);
 		return produto;
 	}
@@ -314,12 +315,20 @@ public class VendaDAOTest {
 		Venda venda = new Venda();
 		venda.setCodigo(codigo);
 		venda.setDataVenda(Instant.now());
-		venda.setCliente(this.cliente);
+		venda.setCliente(verificarIdadeMinima(this.cliente));
 		venda.setStatus(Status.INICIADA);
 		venda.adicionarProduto(this.produto, 2);
 		return venda;
 	}
-	
+
+	private Cliente verificarIdadeMinima(Cliente cliente) {
+		if (!(cliente.getIdade() >= 18 && cliente.getIdade() <= 120)) {
+			throw new UnsupportedOperationException("Cliente nao tem a idade minima");
+		}
+		return cliente;
+    }
+
+
 	private void excluirVendas() throws DAOException {
 		String sqlProd = "DELETE FROM TB_PRODUTO_QUANTIDADE";
 		executeDelete(sqlProd);
